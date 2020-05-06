@@ -18,7 +18,7 @@
          echo 'Critical Error: Unable to connect to Database Server because: '.$pe->getMessage();
      }
 ?>
-
+ -->
 
 
 <?php
@@ -36,4 +36,3 @@ if( $conn ) {
      die( print_r( sqlsrv_errors(), true));
 }
 ?>
- -->
