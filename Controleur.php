@@ -5,7 +5,7 @@ class Controleur{
   private $maGestion;
 
   public function __construct(){
-    //$this->maGestion = new Gestion();
+    $this->maGestion = new Gestion();
   }
 
 
