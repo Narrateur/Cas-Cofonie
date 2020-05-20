@@ -8,7 +8,9 @@ class Controleur{
     $this->maGestion = new Gestion();
   }
 
-
+  public function afficherMenu(){
+    require 'Vues/Menu.php';
+  }
 
 }
 

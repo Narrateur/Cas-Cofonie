@@ -9,7 +9,7 @@ class Texte{
   //CONSTRUCTEUR
   public function __construct($unCode, $unTitre, $unVote, $unePromulgation, $unCodeInstitution){
     $this->code_texte = $unCode;
-    $this->titre_texte = $unTitre,
+    $this->titre_texte = $unTitre;
     $this->vote_final_texte = $unVote;
     $this->promulgation_texte = $unePromulgation;
     $this->code_institution = $unCodeInstitution;

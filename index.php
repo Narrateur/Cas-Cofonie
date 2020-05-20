@@ -14,4 +14,8 @@ include 'Controleur.php';
 	//$monControleur = unserialize($_SESSION['Controleur']);
 	}
 
+	if ((isset($_GET['vue'])) && (isset($_GET['action'])) ){$monControleur->affichePage($_GET['action'],$_GET['vue']);}
+
+	//$monControleur->afficheEntete();
+	$monControleur->afficherMenu();
  ?>

@@ -9,7 +9,7 @@ class AccesBD{
 	private $PARAM_hote='DESKTOP-9DS3P7N\SQLEXPRESS'; // le chemin vers le serveur
   private $PARAM_utilisateur='admin'; // nom d'utilisateur pour se connecter
   private $PARAM_mot_passe='admin'; // mot de passe de l'utilisateur pour se connecter
-  private $PARAM_nom_bd='CasCofonie';
+  private $PARAM_nom_bd='CasCofoniePasteTheo';
   private $connexion;
 
   //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -21,7 +21,7 @@ class AccesBD{
 			//$this->connection = odbc_connect("Driver={SQL Server Native Client 10.0};Server=$serverName;Database=$db;", 'user', 'pass');
 			//$this->connection = sqlsrv_connect($dbhost, array("Database" => $dbname, "UID" => "", "PWD" => ""));
     }catch(Exeption $e){
-      print 'Erreur : '+$e;
+      print 'Erreur : '.$e;
     }
   }
 
@@ -31,7 +31,7 @@ class AccesBD{
 		$stringQuery="SELECT * FROM ";
 
 		$stringQuery = $this->specialCase($stringQuery,$uneTable);
-		$query = $this->conn->prepare($stringQuery);
+		$query = $this->connexion->prepare($stringQuery);
 
 		if($query->execute())
 		{
@@ -49,10 +49,58 @@ class AccesBD{
 		return $lesInfos;
 	}
 
-}
+
+
+
+
+	public function specialCase($stringQuery,$uneTable){
+		$uneTable = strtoupper($uneTable);
+		switch ($uneTable)
+		{
+			case 'AMENDEMENT':
+				$stringQuery.='AMENDEMENT';
+				break;
+			case 'ARTICLE':
+				$stringQuery.='ARTICLE';
+				break;
+			case 'COMPRENDRE':
+				$stringQuery.='COMPRENDRE';
+				break;
+			case 'DATE':
+				$stringQuery.='DATE';
+				break;
+			case 'FAIRE_REFERENCE':
+				$stringQuery.='FAIRE_REFERENCE';
+				break;
+			case 'INSTITUTION':
+				$stringQuery.='INSTITUTION';
+				break;
+			case 'ORGANE':
+				$stringQuery.='ORGANE';
+				break;
+			case 'ROLE':
+				$stringQuery.='ROLE';
+				break;
+			case 'TEXTE':
+				$stringQuery.='TEXTE';
+				break;
+			case 'TYPE_INSTITUTION':
+				$stringQuery.='TYPE_INSTITUTION';
+				break;
+			case 'UTILISATEUR':
+				$stringQuery.='UTILISATEUR';
+				break;
+			default:
+				die('Pas une table valide -> '.$uneTable);
+				break;
+		}
+		return $stringQuery.";";
+	}
 
 
 
 
 
-?>
+
+
+}?>

@@ -1,7 +1,7 @@
 <?php
 include 'Modeles/Classes/ClasseAmendement.php';
 
-class conteneurAmendement{
+class ConteneurAmendement{
   private $lesAmendements;
 
   //CONSTRUCTEUR

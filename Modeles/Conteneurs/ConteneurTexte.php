@@ -1,7 +1,7 @@
 <?php
 include 'Modeles/Classes/ClasseTexte.php';
 
-class conteneurTexte{
+class ConteneurTexte{
   private $lesTextes;
 
   //CONSTUCTEUR

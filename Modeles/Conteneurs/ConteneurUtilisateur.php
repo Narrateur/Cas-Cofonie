@@ -1,7 +1,7 @@
 <?php
-include 'Modeles/Classes/ClassUtilisateur.php';
+include 'Modeles/Classes/ClasseUtilisateur.php';
 
-class consteneurUtilisateur{
+class ConteneurUtilisateur{
   private $lesUtilisateurs;
 
   //CONSTRUCTEUR

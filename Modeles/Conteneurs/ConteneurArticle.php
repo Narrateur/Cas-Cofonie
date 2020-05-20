@@ -1,7 +1,7 @@
 <?php
 include 'Modeles/Classes/ClasseArticle.php';
 
-class conteneurArticle{
+class ConteneurArticle{
   private $lesArticles;
 
   //CONSTRUCTEUR
