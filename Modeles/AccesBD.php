@@ -1,38 +1,58 @@
-<!--<?php
-     // Database connection details
-     $dsn = 'sqlsrv:server=SERVER2012\MSSQL;database=phpkb';
-     $user = 'dbuser';
-     $pass = 'secure_password';
 
-     // Initialise
-     $conn = null;
-     try {
-         // Database connection
-         $pdoObj = new PDO($dsn, $user, $pass);
-         if(is_object($pdoObj)){
-           echo 'Connection established successfully.';
-         }
-     }
-     catch(PDOException $pe){
-         // Throw exception
-         echo 'Critical Error: Unable to connect to Database Server because: '.$pe->getMessage();
-     }
-?>
- -->
 
 
 <?php
-$serverName = "serverName\\sqlexpress"; //serverName\instanceName
+class AccesBD{
+  //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//--------------------------ATTRIBUTS PRIVES--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	private $PARAM_hote='DESKTOP-9DS3P7N\SQLEXPRESS'; // le chemin vers le serveur
+  private $PARAM_utilisateur='admin'; // nom d'utilisateur pour se connecter
+  private $PARAM_mot_passe='admin'; // mot de passe de l'utilisateur pour se connecter
+  private $PARAM_nom_bd='CasCofonie';
+  private $connexion;
 
-// Vu que UID et PWD ne sont pas spécifiés dans le tableau $connectionInfo,
-// la connexion va tenter d'utiliser l'authentification Windows.
-$connectionInfo = array( "Database"=>"CasCofonie");
-$conn = sqlsrv_connect( $serverName, $connectionInfo);
+  //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//--------------------------CONSTRUCTEUR------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	function __construct() {
+    try {
+      $this->connexion = new PDO('sqlsrv:Server='.$this->PARAM_hote.';Database='.$this->PARAM_nom_bd, $this->PARAM_utilisateur, $this->PARAM_mot_passe);
+			//$this->connection = odbc_connect("Driver={SQL Server Native Client 10.0};Server=$serverName;Database=$db;", 'user', 'pass');
+			//$this->connection = sqlsrv_connect($dbhost, array("Database" => $dbname, "UID" => "", "PWD" => ""));
+    }catch(Exeption $e){
+      print 'Erreur : '+$e;
+    }
+  }
 
-if( $conn ) {
-     echo "Connexion établie.<br />";
-}else{
-     echo "La connexion n'a pu être établie.<br />";
-     die( print_r( sqlsrv_errors(), true));
+	public function loadTable($uneTable){
+		$lesInfos=null;
+		$nbTuples=0;
+		$stringQuery="SELECT * FROM ";
+
+		$stringQuery = $this->specialCase($stringQuery,$uneTable);
+		$query = $this->conn->prepare($stringQuery);
+
+		if($query->execute())
+		{
+			while($row = $query->fetch(PDO::FETCH_NUM))
+			{
+				$lesInfos[$nbTuples] = $row;
+				$nbTuples++;
+			}
+		}
+		else
+		{
+			die('Problème dans chargement : '.$query->errorCode());
+		}
+
+		return $lesInfos;
+	}
+
 }
+
+
+
+
+
 ?>
