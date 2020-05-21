@@ -1,5 +1,5 @@
 <?php
-
+//commentage
 session_start();
 //include du fichier CONTROLEUR
 include 'Controleur.php';

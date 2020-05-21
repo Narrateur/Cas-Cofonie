@@ -1,4 +1,5 @@
 <?php
+//commentage
 include 'Modeles/Classes/ClasseUtilisateur.php';
 
 class ConteneurUtilisateur{

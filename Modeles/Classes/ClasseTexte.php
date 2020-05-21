@@ -1,4 +1,5 @@
 <?php
+//commentage
 class Texte{
   private $code_texte;
   private $titre_texte;

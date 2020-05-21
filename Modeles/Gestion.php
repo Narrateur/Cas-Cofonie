@@ -1,5 +1,5 @@
 <?php
-//les Includes
+//LES INCLUDES
 include 'Conteneurs/ConteneurAmendement.php';
 include 'Conteneurs/ConteneurArticle.php';
 //include 'Conteneurs/ConteneurComprendre.php';

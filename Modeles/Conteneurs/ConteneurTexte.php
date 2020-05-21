@@ -1,4 +1,5 @@
 <?php
+//commentage
 include 'Modeles/Classes/ClasseTexte.php';
 
 class ConteneurTexte{

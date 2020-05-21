@@ -1,4 +1,5 @@
 <?php
+//commentage
 class Amendement{
   private $code_seq_amendement;
   private $lib_amendement;

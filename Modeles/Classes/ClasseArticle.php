@@ -1,4 +1,5 @@
 <?php
+//commentage
 class Article{
   private $code_article;
   private $titre_article;

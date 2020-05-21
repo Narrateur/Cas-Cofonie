@@ -1,4 +1,5 @@
 <?php
+//commentage
 class Utilisateur{
   private $code_user;
   private $nom_user;
