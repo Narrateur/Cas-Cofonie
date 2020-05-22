@@ -43,20 +43,21 @@ class ConteneurUtilisateur{
 		$result = false;
 		foreach($this->lesUtilisateurs as $unUtilisateur)
 		{
+      $result = false;
 			$unLogin = $unUtilisateur->getLoginUser();
-			$unMotDePasse = $unUtilisateur->getPasswordUser();
-			//$mdp = strtolower($mdp);
-			//$email = strtolower($email);
-			//$unMotDePasse = strtolower($unMotDePasse);
-			//$unEmail = strtolower($unEmail);
+      $unMotDePasse = $unUtilisateur->getPasswordUser();
+
+      //--Supprime les eventuelles espace-----(sql server met des espace à la fin, donc fausse l'authentification)---------------------
+      $unLogin = str_replace(' ','',$unLogin);    
+      $unMotDePasse = str_replace(' ','',$unMotDePasse);
+      //$login = str_replace(' ','',$login);      //On ne retire pas les espaces de ce que l'utilisateur entre
+      //$mdp = str_replace(' ','',$mdp);      //----------------------------------------------------------
+      //-------------------------------------------------------------------------------------------------------------------------------
+      
 			if(($mdp==$unMotDePasse)&&($login==$unLogin))
 			{
 				$result = true;
 				break;
-			}
-			else
-			{
-				$result = false;
 			}
 			
 		}

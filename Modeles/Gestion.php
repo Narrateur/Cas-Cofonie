@@ -31,10 +31,10 @@ class Gestion{
     $this->toutLesUtilisatateurs = new ConteneurUtilisateur();
     $this->CasCofonieBDD = new AccesBD();
 
-    $this->chargeLesTextes();
-    $this->chargeLesArticles();
-    $this->chargeLesAmendements();
-    $this->chargeLesUtilisateurs();
+    $this->chargeTexte();
+    $this->chargeArticle();
+    $this->chargeAmendement();
+    $this->chargeUtilisateur();
   }
 
 
@@ -42,9 +42,9 @@ class Gestion{
 	{
 		return $this->toutLesUtilisatateurs->verifIdentifiant($email);
 	}
-	public function verifMDP($email, $mdp)
+	public function identification($loginConnexion, $passwordConnexion)
 	{
-		return $this->toutLesUtilisatateurs->identification($email, $mdp);
+		return $this->toutLesUtilisatateurs->identification($loginConnexion, $passwordConnexion);
 	}
 
 
@@ -53,23 +53,7 @@ class Gestion{
   //---------------------------------------------------------------------------------------------------------------------------------------------
   //-----------METHODES DE CHARGEMENT DE LA BASE DE DONNEES--------------------------------------------------------------------------------------
   //---------------------------------------------------------------------------------------------------------------------------------------------
-  public function chargeLesTextes(){
-    $resultat = $this->CasCofonieBDD->loadTable('Texte');
-    $nb=0;
-    while($nb<sizeof($resultat)){
-      $this->toutLesTextes->ajouterTexte($resultat[$nb] [0], $resultat[$nb] [1], $resultat[$nb] [2], $resultat[$nb] [3], $resultat[$nb] [4]);
-      $nb++;
-    }
-  }
-  public function chargeLesArticles(){
-    $resultat = $this->CasCofonieBDD->loadTable('Article');
-    $nb=0;
-    while($nb<sizeof($resultat)){
-      $this->toutLesArticles->ajouterArticle($resultat[$nb] [0], $resultat[$nb] [1], $resultat[$nb] [2], $resultat[$nb] [3]);
-      $nb++;
-    }
-  }
-  public function chargeLesAmendements(){
+  public function chargeAmendement(){
     $resultat = $this->CasCofonieBDD->loadTable('Amendement');
     $nb=0;
     while($nb<sizeof($resultat)){
@@ -77,7 +61,26 @@ class Gestion{
       $nb++;
     }
   }
-  public function chargeLesUtilisateurs(){
+  public function chargeArticle(){
+    $resultat = $this->CasCofonieBDD->loadTable('Article');
+    $nb=0;
+    while($nb<sizeof($resultat)){
+      $this->toutLesArticles->ajouterArticle($resultat[$nb] [0], $resultat[$nb] [1], $resultat[$nb] [2], $resultat[$nb] [3]);
+      $nb++;
+    }
+  }
+  
+  public function chargeTexte(){
+    $resultat = $this->CasCofonieBDD->loadTable('Texte');
+    $nb=0;
+    while($nb<sizeof($resultat)){
+      $this->toutLesTextes->ajouterTexte($resultat[$nb] [0], $resultat[$nb] [1], $resultat[$nb] [2], $resultat[$nb] [3], $resultat[$nb] [4]);
+      $nb++;
+    }
+  }
+  
+  
+  public function chargeUtilisateur(){
     $resultat = $this->CasCofonieBDD->loadTable('Utilisateur');
     $nb=0;
     while($nb<sizeof($resultat)){
@@ -87,9 +90,13 @@ class Gestion{
   }
 
 
+  //---------------------------------------------------------------------------------------------------------------------------------------------
+  //-----------METHODES D'AJOUT DANS LA BASE DE DONNEES------------------------------------------------------------------------------------------
+  //---------------------------------------------------------------------------------------------------------------------------------------------
 
+  public function ajouterUtilisateur($nomUser, $prenomUser, $loginUser, $passwordUser, $codeInstitution){
 
-
+  }
 
 
 

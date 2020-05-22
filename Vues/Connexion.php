@@ -6,7 +6,7 @@
         <div class="vueConnexion">
 
             <div class="page connexion">
-                <FORM action = 'index.php?vue=identification&action=connexion' method='post'>
+                <FORM action = 'index.php?vue=vueConnexion&action=identification' method='post'>
                     <br>Connexion<br><br>
 
                     <input type='text' name='loginConnexion' placeholder='Login' required><br>
@@ -21,7 +21,7 @@
 
 
             <div class="page inscription">
-                <FORM action='index.php?vue=identification&action=enregistrer' method='post'>
+                <FORM action='index.php?vue=vueConnexion&action=enregistrer' method='post'>
                     <br>Inscription<br><br>
 
                     Nom : <input type='text' name='nom' required><br>

@@ -1,5 +1,7 @@
 <?php
-//LES INCLUDES--------------------------------------------------------------
+//--------------------------------------------------------------------------------
+//------LES INCLUDES--------------------------------------------------------------
+//--------------------------------------------------------------------------------
 include 'Modeles/Gestion.php';
 
 class Controleur{
@@ -30,24 +32,53 @@ class Controleur{
         require 'Vues/Connexion.php';
       break;
 
-      case "inscription":
+      case "enregistrer":
 				$nom = $_POST['nom'];
 				$prenom = $_POST['prenom'];
         $login = $_POST['login'];
 				$mdp = $_POST['mdp'];
-				$mdp2 = $_POST['mdp2'];
+        $mdp2 = $_POST['mdp2'];
+        
+        if($mdp != $mdp2){
+					$message = "Les mots de passe doivent être identique";
+					$lien = 'index.php?vue=vueConnexion&action=connexion';
+					$_SESSION['message'] = $message;
+					$_SESSION['lien'] = $lien;
+					require 'Vues/PageErreur.php';
+        }else{
+          if($this->monCGA->verifIdentifiant($email) == true)
+					{
+						$message = "Cette adresse mail est déjà utilisé";
+						$lien = 'index.php?vue=identification&action=inscription';
+						$_SESSION['message'] = $message;
+						$_SESSION['lien'] = $lien;
+						require 'Vues/PageErreur.php';
+					}
+					else
+					{
+						//$subject = 'Validation'; // email';
+						//$message = 'Bonjour '; //.$prenom.' '.$nom.' Ce mail a pour but de finaliser votre inscription. Cliquer sur ce lien vous renvera sur la page d\'accueil de notre site' ;
+						
+						//mail ($email, $subject, $message);
+						
+						$this->maGestion->ajouterUtilisateur($nom,$prenom,$mdp,$email,$adresse,$ville,$codePostal,$telephone,$com);
+						require 'Vues/enregistrer.php';
+						$this->vueTexte(sd);
+					}
+        }
+        
       break;
 
       case "identification":
         $loginConnexion=$_POST['loginConnexion'];
         $passwordConnexion=$_POST['mdpConnexion'];
         
-        if($this->monCGA->verifMDP($email, $mdp) == false)
+        if($this->maGestion->identification($loginConnexion, $passwordConnexion) == false)
 				{
 					echo 'Identifiant ou mot de passe incorrect';
 				}else{
-          echo 'connecte';
           require 'Vues/vueTest.php';
+          $_SESSION['IdentifiantUtilisateur'] = $loginConnexion;
         }
 
       break;
