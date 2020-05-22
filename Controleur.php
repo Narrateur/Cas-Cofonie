@@ -30,7 +30,7 @@ class Controleur{
     switch($action){
       case "connexion":
         require 'Vues/Connexion.php';
-      break;
+      break; //case "connexion"
 
       case "enregistrer":
 				$nom = $_POST['nom'];
@@ -38,6 +38,7 @@ class Controleur{
         $login = $_POST['login'];
 				$mdp = $_POST['mdp'];
         $mdp2 = $_POST['mdp2'];
+        $codeInstitution = $_POST['idInstitution'];
         
         if($mdp != $mdp2){
 					$message = "Les mots de passe doivent être identique";
@@ -46,7 +47,7 @@ class Controleur{
 					$_SESSION['lien'] = $lien;
 					require 'Vues/PageErreur.php';
         }else{
-          if($this->monCGA->verifIdentifiant($email) == true)
+          if($this->monCGA->verifIdentifiant($login) == true)
 					{
 						$message = "Cette adresse mail est déjà utilisé";
 						$lien = 'index.php?vue=identification&action=inscription';
@@ -56,18 +57,13 @@ class Controleur{
 					}
 					else
 					{
-						//$subject = 'Validation'; // email';
-						//$message = 'Bonjour '; //.$prenom.' '.$nom.' Ce mail a pour but de finaliser votre inscription. Cliquer sur ce lien vous renvera sur la page d\'accueil de notre site' ;
-						
-						//mail ($email, $subject, $message);
-						
-						$this->maGestion->ajouterUtilisateur($nom,$prenom,$mdp,$email,$adresse,$ville,$codePostal,$telephone,$com);
-						require 'Vues/enregistrer.php';
+						$this->maGestion->ajouterUtilisateur($nom, $prenom, $login, $mdp, $codeInstitution);
+						//require 'Vues/enregistrer.php';
 						$this->vueTexte('visualiser');
 					}
         }
         
-      break;
+      break; //case "enregistrer"
 
       case "identification":
         $loginConnexion=$_POST['loginConnexion'];
@@ -81,7 +77,7 @@ class Controleur{
           $_SESSION['IdentifiantUtilisateur'] = $loginConnexion;
         }
 
-      break;
+      break; //case "identification"
     }
   }
 

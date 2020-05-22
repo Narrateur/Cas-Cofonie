@@ -26,7 +26,7 @@
 
                     Nom : <input type='text' name='nom' required><br>
                     Prenom : <input type='text' name='prenom' required><br>
-                    Institution : <input type='text' name='insitution' required><br>
+                    Institution : <?php $_SESSION['listeInstitution']; ?>
                     Identifiant : <input type='text' name='login' required><br>
                     Mot de passe : <input type='password' name='mdp' required><br>
                     Confirmer le mot de passe : <input type='password' name='mdp2' required><br><br>

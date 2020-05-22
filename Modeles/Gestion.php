@@ -5,7 +5,7 @@ include 'Conteneurs/ConteneurArticle.php';
 //include 'Conteneurs/ConteneurComprendre.php';
 //include 'Conteneurs/ConteneurDate.php';
 //include 'Conteneurs/ConteneurFaireReference.php';
-//include 'Conteneurs/ConteneurInstitution.php';
+include 'Conteneurs/ConteneurInstitution.php';
 //include 'Conteneurs/ConteneurOrganes.php';
 //include 'Conteneurs/ConteneurRole.php';
 include 'Conteneurs/ConteneurTexte.php';
@@ -21,6 +21,7 @@ class Gestion{
   private $lesArticles;
   private $lesAmendements;
   private $lesUtilisatateurs;
+  private $lesInstitutions;
   private $CasCofonieBDD;
 
 
@@ -29,6 +30,7 @@ class Gestion{
     $this->lesArticles = new ConteneurArticle();
     $this->lesAmendements = new ConteneurAmendement();
     $this->lesUtilisatateurs = new ConteneurUtilisateur();
+    $this->lesInstitutions = new ConteneurInstitution();
     $this->CasCofonieBDD = new AccesBD();
 
     $this->chargeTexte();
@@ -100,7 +102,8 @@ class Gestion{
   //---------------------------------------------------------------------------------------------------------------------------------------------
 
   public function ajouterUtilisateur($nomUser, $prenomUser, $loginUser, $passwordUser, $codeInstitution){
-
+    $sonID = $this->CasCofonieBDD->insertUtilisateur($nomUser, $prenomUser, $loginUser, $passwordUser, $codeInstitution);
+    $this->lesUtilisatateurs->ajouterUtilisateur($sonID, $nomUser, $prenomUser, $loginUser, $passwordUser, $codeInstitution);
   }
 
 

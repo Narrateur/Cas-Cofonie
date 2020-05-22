@@ -13,6 +13,15 @@ class ConteneurInstitution{
         $uneInstitution = new Institution($codeInstitution, $nomInstitution, $typeInstitution);
         $this->lesInstitutions->append($uneInstitution);
     }
+
+    public function listeDeroulanteInstitution(){
+        $vretour = "<SELECT name = 'idInstitution'>";
+        foreach($this->lesInstitutions as $uneInstitution){
+            $vretour = $vretour."<OPTION value='".$uneInstitution->getCodeInstitution()."'>".$uneInstitution->getNomInstitution()."</OPTION>";
+        }
+        $vretour = $vretour."</SELECT>";
+        return $vretour;
+    }
 }
 
 ?>
