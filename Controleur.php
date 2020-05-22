@@ -63,7 +63,7 @@ class Controleur{
 						
 						$this->maGestion->ajouterUtilisateur($nom,$prenom,$mdp,$email,$adresse,$ville,$codePostal,$telephone,$com);
 						require 'Vues/enregistrer.php';
-						$this->vueTexte(sd);
+						$this->vueTexte('visualiser');
 					}
         }
         

@@ -88,6 +88,9 @@ class AccesBD{
 			case 'UTILISATEUR':
 				$stringQuery.='UTILISATEUR';
 				break;
+			case 'VOTER':
+				$stringQuery.='VOTER';
+				break;
 			default:
 				die('Pas une table valide -> '.$uneTable);
 				break;

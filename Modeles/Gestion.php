@@ -17,18 +17,18 @@ include 'AccesBD.php';
 //La Classe
 class Gestion{
   //Les Variables
-  private $toutLesTextes;
-  private $toutLesArticles;
-  private $toutLesAmendements;
-  private $toutLesUtilisatateurs;
+  private $lesTextes;
+  private $lesArticles;
+  private $lesAmendements;
+  private $lesUtilisatateurs;
   private $CasCofonieBDD;
 
 
   public function __construct(){
-    $this->toutLesTextes = new ConteneurTexte();
-    $this->toutLesArticles = new ConteneurArticle();
-    $this->toutLesAmendements = new ConteneurAmendement();
-    $this->toutLesUtilisatateurs = new ConteneurUtilisateur();
+    $this->lesTextes = new ConteneurTexte();
+    $this->lesArticles = new ConteneurArticle();
+    $this->lesAmendements = new ConteneurAmendement();
+    $this->lesUtilisatateurs = new ConteneurUtilisateur();
     $this->CasCofonieBDD = new AccesBD();
 
     $this->chargeTexte();
@@ -40,11 +40,11 @@ class Gestion{
 
   public function verifIdentifiant($email)
 	{
-		return $this->toutLesUtilisatateurs->verifIdentifiant($email);
+		return $this->lesUtilisatateurs->verifIdentifiant($email);
 	}
 	public function identification($loginConnexion, $passwordConnexion)
 	{
-		return $this->toutLesUtilisatateurs->identification($loginConnexion, $passwordConnexion);
+		return $this->lesUtilisatateurs->identification($loginConnexion, $passwordConnexion);
 	}
 
 
@@ -57,7 +57,7 @@ class Gestion{
     $resultat = $this->CasCofonieBDD->loadTable('Amendement');
     $nb=0;
     while($nb<sizeof($resultat)){
-      $this->toutLesAmendements->ajouterAmendement($resultat[$nb] [0], $resultat[$nb] [1], $resultat[$nb] [2], $resultat[$nb] [3], $resultat[$nb] [4], $resultat[$nb] [5]);
+      $this->lesAmendements->ajouterAmendement($resultat[$nb] [0], $resultat[$nb] [1], $resultat[$nb] [2], $resultat[$nb] [3], $resultat[$nb] [4], $resultat[$nb] [5]);
       $nb++;
     }
   }
@@ -65,26 +65,31 @@ class Gestion{
     $resultat = $this->CasCofonieBDD->loadTable('Article');
     $nb=0;
     while($nb<sizeof($resultat)){
-      $this->toutLesArticles->ajouterArticle($resultat[$nb] [0], $resultat[$nb] [1], $resultat[$nb] [2], $resultat[$nb] [3]);
+      $this->lesArticles->ajouterArticle($resultat[$nb] [0], $resultat[$nb] [1], $resultat[$nb] [2], $resultat[$nb] [3]);
       $nb++;
     }
   }
-  
+  public function chargeInstitution(){
+    $resultat = $this->CasCofonieBDD->loadTable('Institution');
+    $nb=0;
+    while($nb<sizeof($resultat)){
+      $this->lesInstitutions->ajouterInstitution($resultat[$nb] [0], $resultat[$nb] [1], $resultat[$nb] [2]);
+      $nb++;
+    }
+  }
   public function chargeTexte(){
     $resultat = $this->CasCofonieBDD->loadTable('Texte');
     $nb=0;
     while($nb<sizeof($resultat)){
-      $this->toutLesTextes->ajouterTexte($resultat[$nb] [0], $resultat[$nb] [1], $resultat[$nb] [2], $resultat[$nb] [3], $resultat[$nb] [4]);
+      $this->lesTextes->ajouterTexte($resultat[$nb] [0], $resultat[$nb] [1], $resultat[$nb] [2], $resultat[$nb] [3], $resultat[$nb] [4]);
       $nb++;
     }
   }
-  
-  
   public function chargeUtilisateur(){
     $resultat = $this->CasCofonieBDD->loadTable('Utilisateur');
     $nb=0;
     while($nb<sizeof($resultat)){
-      $this->toutLesUtilisatateurs->ajouterUtilisateur($resultat[$nb] [0], $resultat[$nb] [1], $resultat[$nb] [2], $resultat[$nb] [3], $resultat[$nb] [4], $resultat[$nb] [5]);
+      $this->lesUtilisatateurs->ajouterUtilisateur($resultat[$nb] [0], $resultat[$nb] [1], $resultat[$nb] [2], $resultat[$nb] [3], $resultat[$nb] [4], $resultat[$nb] [5]);
       $nb++;
     }
   }
