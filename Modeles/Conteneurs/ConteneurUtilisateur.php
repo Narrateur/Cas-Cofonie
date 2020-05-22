@@ -10,8 +10,8 @@ class ConteneurUtilisateur{
     $this->lesUtilisateurs = new ArrayObject();
   }
 
-  public function ajouterUtilisateur($unCodeUser, $unNomUser, $unPrenomUser, $unLoginUser, $unPasswordUser, $unCodeInstitution){
-    $unUtilisateur = new Utilisateur($unCodeUser, $unNomUser, $unPrenomUser, $unLoginUser, $unPasswordUser, $unCodeInstitution);
+  public function ajouterUtilisateur($unCodeUser, $unNomUser, $unPrenomUser, $unLoginUser, $unPasswordUser, $unCodeOrgane){
+    $unUtilisateur = new Utilisateur($unCodeUser, $unNomUser, $unPrenomUser, $unLoginUser, $unPasswordUser, $unCodeOrgane);
     $this->lesUtilisateurs->append($unUtilisateur);
   }
 
@@ -20,17 +20,13 @@ class ConteneurUtilisateur{
 		$result = false;
 		foreach($this->lesUtilisateurs as $unUtilisateur)
 		{
-			$login = $unUtilisateur->getPasswordUser();
+			$login = $unUtilisateur->getLoginUser();
 			$idInscription = strtolower($idInscription);
-			$email = strtolower($login);
-			if(strcmp($email, $idInscription) == 0)
+			$login = strtolower($login);
+			if($login == $idInscription)
 			{
 				$result = true;
 				break;
-			}
-			else
-			{
-				$result = false;
 			}
 		}
 		return $result;  

@@ -6,7 +6,7 @@ include 'Conteneurs/ConteneurArticle.php';
 //include 'Conteneurs/ConteneurDate.php';
 //include 'Conteneurs/ConteneurFaireReference.php';
 include 'Conteneurs/ConteneurInstitution.php';
-//include 'Conteneurs/ConteneurOrganes.php';
+include 'Conteneurs/ConteneurOrgane.php';
 //include 'Conteneurs/ConteneurRole.php';
 include 'Conteneurs/ConteneurTexte.php';
 //include 'Conteneurs/ConteneurTypeInstitution.php';
@@ -31,18 +31,21 @@ class Gestion{
     $this->lesAmendements = new ConteneurAmendement();
     $this->lesUtilisatateurs = new ConteneurUtilisateur();
     $this->lesInstitutions = new ConteneurInstitution();
+    $this->lesOrganes = new ConteneurOrgane();
     $this->CasCofonieBDD = new AccesBD();
 
     $this->chargeTexte();
     $this->chargeArticle();
     $this->chargeAmendement();
     $this->chargeUtilisateur();
+    $this->chargeInstitution();
+    $this->chargeOrgane();
   }
 
 
-  public function verifIdentifiant($email)
+  public function verifIdentifiant($login)
 	{
-		return $this->lesUtilisatateurs->verifIdentifiant($email);
+		return $this->lesUtilisatateurs->verifIdentifiant($login);
 	}
 	public function identification($loginConnexion, $passwordConnexion)
 	{
@@ -79,6 +82,14 @@ class Gestion{
       $nb++;
     }
   }
+  public function chargeOrgane(){
+    $resultat = $this->CasCofonieBDD->loadTable('Organe');
+    $nb=0;
+    while($nb<sizeof($resultat)){
+      $this->lesOrganes->ajouterOrgane($resultat[$nb] [0], $resultat[$nb] [1], $resultat[$nb] [2]);
+      $nb++;
+    }
+  }
   public function chargeTexte(){
     $resultat = $this->CasCofonieBDD->loadTable('Texte');
     $nb=0;
@@ -107,7 +118,15 @@ class Gestion{
   }
 
 
-
+  //---------------------------------------------------------------------------------------------------------------------------------------------
+  //-----------METHODES DE LISTAGE DES INFOS-----------------------------------------------------------------------------------------------------
+  //---------------------------------------------------------------------------------------------------------------------------------------------
+  public function listeDeroulanteInstitution(){
+    return $this->lesInstitutions->listeDeroulanteInstitution();
+  }
+  public function listeDeroulanteOrgane(){
+    return $this->lesOrganes->listeDeroulanteOrgane();
+  }
 
 
 }?>
