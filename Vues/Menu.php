@@ -9,7 +9,7 @@
   <body>
     <nav>
       <ul>
-        <li><a href='index.php?vue=connexion&action=connexion'>Connexion / Inscription</a></li><!--
+        <li><a href='index.php?vue=vueConnexion&action=connexion'>Connexion / Inscription</a></li><!--
         --><li><a href='index.php?vue=vueTexte&action=visualiser'>Consulter les Textes de Loi</a></li>
       </ul>
     </nav>

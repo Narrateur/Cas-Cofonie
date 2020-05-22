@@ -11,11 +11,14 @@ include 'Controleur.php';
 	}
 	else
 	{
-	//$monControleur = unserialize($_SESSION['Controleur']);
+	// $monControleur = unserialize($_SESSION['Controleur']);
 	}
-
-	if ((isset($_GET['vue'])) && (isset($_GET['action'])) ){$monControleur->affichePage($_GET['action'],$_GET['vue']);}
 
 	//$monControleur->afficheEntete();
 	$monControleur->afficherMenu();
+
+	if ((isset($_GET['vue'])) && (isset($_GET['action'])) ){$monControleur->afficherPage($_GET['action'],$_GET['vue']);}
+
+	
+	
  ?>
