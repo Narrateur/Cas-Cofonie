@@ -29,19 +29,31 @@ class Controleur{
       case "connexion":
         require 'Vues/Connexion.php';
       break;
+
       case "inscription":
 				$nom = $_POST['nom'];
 				$prenom = $_POST['prenom'];
-        $email = $_POST['email'];
+        $login = $_POST['login'];
 				$mdp = $_POST['mdp'];
 				$mdp2 = $_POST['mdp2'];
       break;
+
       case "identification":
-        $login=$_POST['emailConnexion'];
-        $password=$_POST['mdpConnexion'];
+        $loginConnexion=$_POST['loginConnexion'];
+        $passwordConnexion=$_POST['mdpConnexion'];
+        
+        if($this->monCGA->verifMDP($email, $mdp) == false)
+				{
+					echo 'Identifiant ou mot de passe incorrect';
+				}else{
+          echo 'connecte';
+          require 'Vues/vueTest.php';
+        }
+
       break;
     }
   }
+
   public function vueTexte($action){}
 }
 

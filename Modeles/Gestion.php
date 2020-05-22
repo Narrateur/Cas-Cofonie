@@ -37,7 +37,22 @@ class Gestion{
     $this->chargeLesUtilisateurs();
   }
 
-  //METHODES DE CHARGEMENT DE LA BASE DE DONNEES
+
+  public function verifIdentifiant($email)
+	{
+		return $this->toutLesUtilisatateurs->verifIdentifiant($email);
+	}
+	public function verifMDP($email, $mdp)
+	{
+		return $this->toutLesUtilisatateurs->identification($email, $mdp);
+	}
+
+
+
+
+  //---------------------------------------------------------------------------------------------------------------------------------------------
+  //-----------METHODES DE CHARGEMENT DE LA BASE DE DONNEES--------------------------------------------------------------------------------------
+  //---------------------------------------------------------------------------------------------------------------------------------------------
   public function chargeLesTextes(){
     $resultat = $this->CasCofonieBDD->loadTable('Texte');
     $nb=0;

@@ -34,3 +34,7 @@ nav li a{
   padding: 8px 12px;
   background-image: linear-gradient(180deg, #fff, #ddd 40%, #ccc);
 }
+
+.page{
+  display: inline;
+}
