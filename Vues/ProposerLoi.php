@@ -6,9 +6,12 @@
   </head>
     <body>
         <div class='proposerLoi'>
-            <FORM action = 'index.php?vue=vueTexte&action=enregistrer' method='post'>
-                <input type='text' name='lib_text' placeholder='Login' required><br>
-                <textarea id='textArea' name='textArea' rows="5" cols="33"></textarea>
+            <FORM action = 'index.php?vue=vueTexte&action=enregistrer' method='post' >
+                <input type='text' name='lib_text' placeholder='Intitulé du Texte' value='text' required><br><br>
+                <textarea id='textArea' name='textArea' rows="5" cols="33" placeholder=""></textarea>
+                <?php
+                    
+                ?>
             </FORM>
         </div>
     </body>
