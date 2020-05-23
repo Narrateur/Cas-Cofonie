@@ -52,7 +52,29 @@ class AccesBD{
 		}
 	}
 
+	public function insertTexte($titre_texte, $vote_final_texte, $promulgation_texte, $code_institution){
+		$requete = $this->connexion->prepare("INSERT INTO TEXTE(titre_texte, vote_final_texte, promulgation_texte, code_institution) VALUES(?,?,?,?)");
+		$requete->bindValue(1,$titre_texte);
+		$requete->bindValue(2,$vote_final_texte);
+		$requete->bindValue(3,$promulgation_texte);
+		$requete->bindValue(4,$code_institution);
 
+		if(!$requete->execute()){
+			die("Erreur dans insertTexte : ".$requete->errorCode());
+		}
+	}
+
+	public function insertArticle($code_article,$titre_article, $texte_article, $code_texte){
+		$requete = $this->connexion->prepare("INSERT INTO ARTICLE(code_article, titre_article, texte_article, code_texte) VALUES(?,?,?,?)");
+		$requete->bindValue(1,$code_article);
+		$requete->bindValue(2,$titre_article);
+		$requete->bindValue(3,$texte_article);
+		$requete->bindValue(4,$code_texte);
+
+		if(!$requete->execute()){
+			die("Erreur dans insertArticle : ".$requete->errorCode());
+		}
+	}
 
   	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//------------------CHARGEMENT DES TABLES------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

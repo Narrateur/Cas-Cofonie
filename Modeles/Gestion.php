@@ -116,10 +116,33 @@ class Gestion{
 
   public function ajouterUtilisateur($nomUser, $prenomUser, $loginUser, $passwordUser, $codeInstitution){
     $sonID = $this->CasCofonieBDD->insertUtilisateur($nomUser, $prenomUser, $loginUser, $passwordUser, $codeInstitution);
-    echo 'son id '.$sonID;
+    //echo 'son id '.$sonID;
     $this->lesUtilisatateurs->ajouterUtilisateur($sonID, $nomUser, $prenomUser, $loginUser, $passwordUser, $codeInstitution);
   }
 
+  public function ajouterTexte($titre_texte){
+    $this->CasCofonieBDD->insertTexte($titre_texte, null, null, 3);
+
+    $resultat = $this->CasCofonieBDD->loadTable('Texte'); // Ici on cherche à récupérer l'ID du texte que l'on vient de créer
+    $nb=0;
+    while($nb<sizeof($resultat)){
+      if(str_replace(' ','',$titre_texte) == str_replace(' ','',$resultat[$nb] [1])){
+        $this->lesTextes->ajouterTexte($resultat[$nb] [0], $resultat[$nb] [1], $resultat[$nb] [2], $resultat[$nb] [3], $resultat[$nb] [4]);
+        return $resultat[$nb] [0];
+      }
+      $nb++;
+    }
+    
+  }
+
+  public function ajouterArticle($code_article,$titre_article, $texte_article, $code_texte){
+    $this->CasCofonieBDD->insertArticle($code_article,$titre_article, $texte_article, $code_texte);
+    $this->lesArticles->ajouterArticle($code_article,$titre_article, $texte_article, $code_texte);
+  }
+
+  public function ajouterAmendement(){
+
+  }
 
   //---------------------------------------------------------------------------------------------------------------------------------------------
   //-----------METHODES DE LISTAGE DES INFOS-----------------------------------------------------------------------------------------------------

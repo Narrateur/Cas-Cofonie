@@ -120,12 +120,56 @@ class Controleur{
       break;  //case "voter"
 
       case "proposerLoi":
+        if($_SESSION['nbArticle']==null){
+          $_SESSION['nbArticle'] = 1;
+          $_SESSION['titre_texte']='';
+        }else{
+          $_SESSION['nbArticle'] = $_SESSION['nbArticle']+1;
+          if(isset($_POST['lib_text']) || $_POST['lib_text'] !== ''){
+            $_SESSION['titre_texte']=$_POST['lib_text'];
+          }
+        }
+        
         require 'Vues/ProposerLoi.php';
       break;  //case "proposerTexte"
 
       case "proposerAmendement":
 
       break;  //"proposerAmendement"
+
+      case 'ajouterArticle':
+        if($_SESSION['nbArticle']==null){
+          $_SESSION['nbArticle'] = 1;
+          $_SESSION['titre_texte']='';
+        }else{
+          $_SESSION['nbArticle'] = $_SESSION['nbArticle']+1;
+          //$_SESSION['titre_texte']=$_POST['lib_text'];
+        }
+        require 'Vues/ProposerLoi.php';
+      break;
+
+      case 'retirerArticle':
+        if($_SESSION['nbArticle'] > 0){
+          $_SESSION['nbArticle'] = $_SESSION['nbArticle']-1;
+        }        
+        //$_SESSION['nbArticle'] = 0;
+        require 'Vues/ProposerLoi.php';
+      break;
+
+      case 'enregistrer':
+        $titre_texte = $_POST['lib_text'];
+        $idTexte = $this->maGestion->ajouterTexte($titre_texte);
+        echo 'test';
+        echo $idTexte;
+        echo 'test';
+        for($i=1;$i<=$_SESSION['nbArticle'];$i++){
+          $titre_article = $_POST['titre_article'.$i];
+          $texte_article = $_POST['texte_article'.$i];
+          $this->maGestion->ajouterArticle($i,$titre_article,$texte_article,$idTexte);
+        }
+
+        $this->vueTexte('visualiser');
+      break;
     }
   }
 }
