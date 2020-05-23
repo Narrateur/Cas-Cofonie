@@ -10,12 +10,12 @@ class Utilisateur{
 
   //CONSTUCTEUR
   public function __construct($unCodeUser, $unNomUser, $unPrenomUser, $unLoginUser, $unPasswordUser, $unCodeOrgane){
-    $this->code_user = $unCodeUser;
-    $this->nom_user = $unNomUser;
-    $this->prenom_user = $unPrenomUser;
-    $this->login_user = $unLoginUser;
-    $this->password_user = $unPasswordUser;
-    $this->code_organe = $unCodeOrgane;
+    $this->code_user = str_replace(' ','',$unCodeUser) ;
+    $this->nom_user = str_replace(' ','',$unNomUser);
+    $this->prenom_user = str_replace(' ','',$unPrenomUser);
+    $this->login_user = str_replace(' ','',$unLoginUser);
+    $this->password_user = str_replace(' ','',$unPasswordUser);
+    $this->code_organe = str_replace(' ','',$unCodeOrgane);
   }
 
   //GETTER

@@ -51,7 +51,9 @@ class Gestion{
 	{
 		return $this->lesUtilisatateurs->identification($loginConnexion, $passwordConnexion);
 	}
-
+  public function getNomPrenom($loginUser){
+    return $this->lesUtilisatateurs->getNomPrenom($loginUser);
+  }
 
 
 
@@ -132,7 +134,7 @@ class Gestion{
     $vretour='';
     for($texte=1; $texte<=$this->lesTextes->returnPlusGrandID(); $texte++){
       if(!empty($this->lesTextes->getInfo($texte, 'titre_texte'))){
-        $vretour = $vretour."<table border=2>
+        $vretour = $vretour."<table border=2 margin-left:auto;margin-right:auto;>
                               <tr>
                                 <td style='text-align:center'>
                                   <h3>".$this->lesTextes->getInfo($texte, 'titre_texte')."</h3>
@@ -145,7 +147,7 @@ class Gestion{
 
             for($amendement=1; $amendement<=$this->lesAmendements->returnPlusGrandIDAmendementArticle($article,$texte);$amendement++){
               if(!empty($this->lesAmendements->getInfo($amendement,$article,$texte,'lib_amendement'))){
-                $vretour = $vretour."<td>".$this->lesAmendements->getInfo($amendement,$article,$texte,'lib_amendement')." du ".$this->lesAmendements->getInfo($amendement,$article,$texte,'date_amendement')."<br><br>".$this->lesAmendements->getInfo($amendement,$article,$texte,'texte_amendement')."</td>";
+                $vretour = $vretour."<td>".$this->lesAmendements->getInfo($amendement,$article,$texte,'lib_amendement')." <br>du ".$this->lesAmendements->getInfo($amendement,$article,$texte,'date_amendement')."<br><br>".$this->lesAmendements->getInfo($amendement,$article,$texte,'texte_amendement')."</td>";
               }
             }
             $vretour = $vretour."</tr>";
@@ -157,5 +159,10 @@ class Gestion{
     }
     return $vretour;
   }
+
+  public function listeLesArticlesAVoter(){
+    //compliqué
+  }
+
 
 }?>

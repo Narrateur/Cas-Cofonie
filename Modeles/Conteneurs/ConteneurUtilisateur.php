@@ -3,17 +3,27 @@
 include 'Modeles/Classes/ClasseUtilisateur.php';
 
 class ConteneurUtilisateur{
-  private $lesUtilisateurs;
+  	private $lesUtilisateurs;
 
-  //CONSTRUCTEUR
-  public function __construct(){
-    $this->lesUtilisateurs = new ArrayObject();
-  }
+  	//CONSTRUCTEUR
+  	public function __construct(){
+    	$this->lesUtilisateurs = new ArrayObject();
+  	}
 
-  public function ajouterUtilisateur($unCodeUser, $unNomUser, $unPrenomUser, $unLoginUser, $unPasswordUser, $unCodeOrgane){
-    $unUtilisateur = new Utilisateur($unCodeUser, $unNomUser, $unPrenomUser, $unLoginUser, $unPasswordUser, $unCodeOrgane);
-    $this->lesUtilisateurs->append($unUtilisateur);
-  }
+  	public function ajouterUtilisateur($unCodeUser, $unNomUser, $unPrenomUser, $unLoginUser, $unPasswordUser, $unCodeOrgane){
+    	$unUtilisateur = new Utilisateur($unCodeUser, $unNomUser, $unPrenomUser, $unLoginUser, $unPasswordUser, $unCodeOrgane);
+    	$this->lesUtilisateurs->append($unUtilisateur);
+  	}
+
+	public function getNomPrenom($loginUser){
+	  	foreach($this->lesUtilisateurs as $unUtilisateur){
+		  	if(str_replace(' ','',$unUtilisateur->getLoginUser())==str_replace(' ','',$loginUser)){
+				return $unUtilisateur->getNomUser().' '.$unUtilisateur->getPrenomUser();
+			}
+	  	}
+  	}
+
+
 
   public function verifIdentifiant($idInscription) // Verifie si l'identifiant rentré pour l'inscription existe deja ou non
 	{
