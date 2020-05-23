@@ -15,9 +15,9 @@ class ConteneurArticle{
     $this->lesArticles->append($unArticle);
   }
 
-  public function getInfo($codeArticle, $info){
+  public function getInfo($codeArticle, $texte, $info){
     foreach($this->lesArticles as $unArticle){
-      if($unArticle->getCodeArticle() == $codeArticle){
+      if($unArticle->getCodeArticle() == $codeArticle && $unArticle->getCodeTexte()==$texte){
         switch($info){
           case 'code_article':
             return $unArticle->getCodeArticle();

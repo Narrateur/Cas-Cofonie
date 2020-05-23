@@ -15,6 +15,52 @@ class ConteneurAmendement{
     $this->lesAmendements->append($unAmendement);
   }
 
+  public function getInfo($codeAmendement, $codeArticle, $codeTexte, $info){
+    foreach($this->lesAmendements as $unAmendement){
+      if($unAmendement->getCodeSeqAmendement()==$codeAmendement && $unAmendement->getCodeArticleRef() == $codeArticle && $unAmendement->getCodeTexteRef() == $codeTexte){
+        switch($info){
+          case 'code_seq_amendement':
+            return $unAmendement->getCodeSeqAmendement();
+          break;
+          case 'lib_amendement':
+            return $unAmendement->getLibAmendement();
+          break;
+          case 'texte_amendement':
+            return $unAmendement->getTexteAmendement();
+          break;
+          case 'date_amendement':
+            return $unAmendement->getDateAmendement();
+          break;
+          case 'code_article_ref':
+            return $unAmendement->getCodeArticleRef();
+          break;
+          case 'code_texte_ref':
+            return $unAmendement->getCodeTexteRef();
+          break;
+        }
+      }
+    }
+  }
+
+
+
+  public function returnPlusGrandIDAmendementArticle($codeArticle,$codeTexte){
+    $vretour = 0;
+    foreach($this->lesAmendements as $unAmendement){
+      if($unAmendement->getCodeArticleRef() == $codeArticle && $unAmendement->getCodeTexteRef() == $codeTexte){
+        if($unAmendement->getCodeSeqAmendement() > $vretour){
+          $vretour = $unAmendement->getCodeSeqAmendement();
+        }
+      }
+    }
+    return $vretour;
+  }
+
+
+
+
+
+
 }
 
 
