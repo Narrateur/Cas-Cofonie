@@ -80,7 +80,14 @@ class Controleur{
     }
   }
 
-  public function vueTexte($action){}
+  public function vueTexte($action){
+    switch($action){
+      case "visualiser":
+        $_SESSION['ToutLesTextes']= $this->maGestion->listeLesTextes();
+        require 'Vues/VueTexte.php';
+      break; //case "visualiser"
+    }
+  }
 }
 
 ?>

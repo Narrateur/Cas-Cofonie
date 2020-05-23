@@ -128,6 +128,21 @@ class Gestion{
   public function listeDeroulanteOrgane(){
     return $this->lesOrganes->listeDeroulanteOrgane();
   }
-
+  public function listeLesTextes(){
+    $vretour='';
+    for($texte=1; $texte<=$this->lesTextes->returnPlusGrandID(); $texte++){
+      if(!empty($this->lesTextes->getInfo($texte, 'titre_texte'))){
+        $vretour = $vretour."<table border=4><tr><td style='text-align:center'><h3>".$this->lesTextes->getInfo($texte, 'titre_texte')."</h3></td></tr>";
+        for($article=1; $article<=$this->lesArticles->returnPlusGrandIDArticleTexte($texte); $article++){
+          if(!empty($this->lesArticles->getInfo($article, 'titre_article'))){
+            $vretour = $vretour."<tr><td>".$this->lesArticles->getInfo($article,'titre_article')."<br>".$this->lesArticles->getInfo($article,'texte_article')."</td></tr>";
+          }
+          
+        }
+        $vretour = $vretour.'</table>';             
+      }
+    }
+    return $vretour;
+  }
 
 }?>
