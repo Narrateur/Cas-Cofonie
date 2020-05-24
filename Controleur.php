@@ -153,9 +153,9 @@ class Controleur{
 					$_SESSION['lien'] = $lien;
 					require 'Vues/PageErreur.php';
         }else{
-          try{
+          if(isset($_POST['idTexteAmendement'])){
             $_SESSION['idTexte']=$_POST['idTexteAmendement'];
-          }catch(Exception $e){
+          }else{
             $_SESSION['idTexte'] = '';
           }
           $_SESSION['listeDeroulanteTexte'] = $this->maGestion->listeDeroulanteTexte();
