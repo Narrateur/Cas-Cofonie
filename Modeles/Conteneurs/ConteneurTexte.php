@@ -52,7 +52,18 @@ class ConteneurTexte{
   }
 
 
-
+  public function listeDeroulanteTexte(){
+    $vretour = "<SELECT name = 'idTexteAmendement'>";
+    foreach($this->lesTextes as $unTexte){
+      
+      if($_SESSION['idTexte'] !== $unTexte->getCodeTexte()){
+        $vretour =$vretour."<OPTION value='".$unTexte->getCodeTexte()."'>".$unTexte->getTitreTexte()."</OPTION>";
+      }else{
+        $vretour =$vretour."<OPTION selected value='".$unTexte->getCodeTexte()."'>".$unTexte->getTitreTexte()."</OPTION>";
+      }
+    }
+    return $vretour."</SELECT>";
+  }
 
 
 

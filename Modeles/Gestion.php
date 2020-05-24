@@ -115,9 +115,16 @@ class Gestion{
   //---------------------------------------------------------------------------------------------------------------------------------------------
 
   public function ajouterUtilisateur($nomUser, $prenomUser, $loginUser, $passwordUser, $codeInstitution){
-    $sonID = $this->CasCofonieBDD->insertUtilisateur($nomUser, $prenomUser, $loginUser, $passwordUser, $codeInstitution);
+    $this->CasCofonieBDD->insertUtilisateur($nomUser, $prenomUser, $loginUser, $passwordUser, $codeInstitution);
     //echo 'son id '.$sonID;
-    $this->lesUtilisatateurs->ajouterUtilisateur($sonID, $nomUser, $prenomUser, $loginUser, $passwordUser, $codeInstitution);
+    //$this->lesUtilisatateurs->ajouterUtilisateur($sonID, $nomUser, $prenomUser, $loginUser, $passwordUser, $codeInstitution);
+
+    $resultat = $this->CasCofonieBDD->loadTable('Utilisateur');
+    $nb=0;
+    while($nb<sizeof($resultat)){
+      $this->lesUtilisatateurs->ajouterUtilisateur($resultat[$nb] [0], $resultat[$nb] [1], $resultat[$nb] [2], $resultat[$nb] [3], $resultat[$nb] [4], $resultat[$nb] [5]);
+      $nb++;
+    }
   }
 
   public function ajouterTexte($titre_texte){
@@ -150,9 +157,19 @@ class Gestion{
   public function listeDeroulanteInstitution(){
     return $this->lesInstitutions->listeDeroulanteInstitution();
   }
+
   public function listeDeroulanteOrgane(){
     return $this->lesOrganes->listeDeroulanteOrgane();
   }
+
+  public function listeDeroulanteTexte(){
+    return $this->lesTextes->listeDeroulanteTexte();
+  }
+
+  public function listeDeroulanteArticle($idTexte){
+    return $this->lesArticles->listeDeroulanteArticle($idTexte);
+  }
+
   public function listeLesTextes(){
     $vretour='';
     for($texte=1; $texte<=$this->lesTextes->returnPlusGrandID(); $texte++){

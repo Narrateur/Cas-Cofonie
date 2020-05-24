@@ -49,6 +49,16 @@ class ConteneurArticle{
     return $vretour;
   }
 
+  public function listeDeroulanteArticle($idTexte){
+    $vretour = "<SELECT name = 'idArticleAmendement'>";
+    foreach($this->lesArticles as $unArticle){
+      if($unArticle->getCodeTexte() == $idTexte){
+        $vretour = $vretour."<OPTION value='".$unArticle->getCodeArticle()."'>".$unArticle->getTitreArticle()."</OPTION>";
+      }
+    }
+    return $vretour."</SELECT>";
+  }
+
 
 }
 ?>

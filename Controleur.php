@@ -94,6 +94,7 @@ class Controleur{
   }
 
   public function vueTexte($action){
+    echo $action;
     switch($action){
       case "visualiser":
         $_SESSION['ToutLesTextes']= $this->maGestion->listeLesTextes();
@@ -120,22 +121,23 @@ class Controleur{
       break;  //case "voter"
 
       case "proposerLoi":
-        if($_SESSION['nbArticle']==null){
-          $_SESSION['nbArticle'] = 1;
-          $_SESSION['titre_texte']='';
-        }else{
-          $_SESSION['nbArticle'] = $_SESSION['nbArticle']+1;
-          if(isset($_POST['lib_text']) || $_POST['lib_text'] !== ''){
-            $_SESSION['titre_texte']=$_POST['lib_text'];
-          }
-        }
-        
+        $_SESSION['nbArticle'] = 1;
         require 'Vues/ProposerLoi.php';
       break;  //case "proposerTexte"
 
-      case "proposerAmendement":
+      case "choisirArticle":
+        
+        try{
+          $_SESSION['idTexte']=$_POST['idTexteAmendement'];
+        }catch(Exception $e){
+          $_SESSION['idTexte'] = '';
+        }
 
-      break;  //"proposerAmendement"
+        $_SESSION['listeDeroulanteTexte'] = $this->maGestion->listeDeroulanteTexte();
+        $_SESSION['listeDeroulanteArticle'] = $this->maGestion->listeDeroulanteArticle($_SESSION['idTexte']);
+
+        require 'Vues/ProposerAmendement.php';
+      break;  //"choisirArticle"
 
       case 'ajouterArticle':
         if($_SESSION['nbArticle']==null){
@@ -156,7 +158,7 @@ class Controleur{
         require 'Vues/ProposerLoi.php';
       break;
 
-      case 'enregistrer':
+      case 'enregistrerLoi':
         $titre_texte = $_POST['lib_text'];
         $idTexte = $this->maGestion->ajouterTexte($titre_texte);
         echo 'test';
@@ -167,9 +169,20 @@ class Controleur{
           $texte_article = $_POST['texte_article'.$i];
           $this->maGestion->ajouterArticle($i,$titre_article,$texte_article,$idTexte);
         }
-
+        $_SESSION['nbArticle'] = null;
         $this->vueTexte('visualiser');
-      break;
+      break; //case 'enregistrerLoi'
+
+      case 'proposerAmendement':
+        echo 'propaezhf';
+        $idArticle = $_POST['idArticleAmendement'];
+        $_SESSION['choixTexteArticle']=1;
+        require 'Vues/ProposerAmendement.php';
+      break;  //case 'proposerAmendement'
+
+      case 'enregistrerAmendement':
+
+      break;  //case 'enregistrerAmendement'
     }
   }
 }
