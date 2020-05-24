@@ -94,7 +94,6 @@ class Controleur{
   }
 
   public function vueTexte($action){
-    echo $action;
     switch($action){
       case "visualiser":
         $_SESSION['ToutLesTextes']= $this->maGestion->listeLesTextes();
@@ -117,7 +116,6 @@ class Controleur{
         }else{
           require 'Vues/vueTest.php';
         }
-
       break;  //case "voter"
 
       case "proposerLoi":
@@ -126,16 +124,13 @@ class Controleur{
       break;  //case "proposerTexte"
 
       case "choisirArticle":
-        
         try{
           $_SESSION['idTexte']=$_POST['idTexteAmendement'];
         }catch(Exception $e){
           $_SESSION['idTexte'] = '';
         }
-
         $_SESSION['listeDeroulanteTexte'] = $this->maGestion->listeDeroulanteTexte();
         $_SESSION['listeDeroulanteArticle'] = $this->maGestion->listeDeroulanteArticle($_SESSION['idTexte']);
-
         require 'Vues/ProposerAmendement.php';
       break;  //"choisirArticle"
 
@@ -145,10 +140,9 @@ class Controleur{
           $_SESSION['titre_texte']='';
         }else{
           $_SESSION['nbArticle'] = $_SESSION['nbArticle']+1;
-          //$_SESSION['titre_texte']=$_POST['lib_text'];
         }
         require 'Vues/ProposerLoi.php';
-      break;
+      break;  //case 'ajouterArticle'
 
       case 'retirerArticle':
         if($_SESSION['nbArticle'] > 0){
@@ -156,14 +150,11 @@ class Controleur{
         }        
         //$_SESSION['nbArticle'] = 0;
         require 'Vues/ProposerLoi.php';
-      break;
+      break;  //case 'retirerArticle'
 
       case 'enregistrerLoi':
         $titre_texte = $_POST['lib_text'];
         $idTexte = $this->maGestion->ajouterTexte($titre_texte);
-        echo 'test';
-        echo $idTexte;
-        echo 'test';
         for($i=1;$i<=$_SESSION['nbArticle'];$i++){
           $titre_article = $_POST['titre_article'.$i];
           $texte_article = $_POST['texte_article'.$i];
@@ -174,14 +165,24 @@ class Controleur{
       break; //case 'enregistrerLoi'
 
       case 'proposerAmendement':
-        echo 'propaezhf';
-        $idArticle = $_POST['idArticleAmendement'];
+        $_SESSION['idArticle'] = $_POST['idArticleAmendement'];
+        $_SESSION['listeDeroulanteArticle'] = $this->maGestion->listeDeroulanteArticle($_SESSION['idTexte']);
+
+        $_SESSION['texteArticleAmendement'] = "<textarea id='texte_article' name='texte_article' rows='5' cols='33' readonly>".$this->maGestion->getInfoArticle($_SESSION['idArticle'], $_SESSION['idTexte'], 'texte_article')."</textarea>";
+
+        $code_amendement = $this->maGestion->returnCodeAmendementSuivant($_SESSION['idArticle'],$_SESSION['idTexte']);
+        $_SESSION['lib_amendement'] = 'Amendement '.$code_amendement.' - Article '.$_SESSION['idArticle'].' - Texte '.$_SESSION['idTexte'];
         $_SESSION['choixTexteArticle']=1;
         require 'Vues/ProposerAmendement.php';
       break;  //case 'proposerAmendement'
 
       case 'enregistrerAmendement':
+        $code_amendement = $this->maGestion->returnCodeAmendementSuivant($_SESSION['idArticle'],$_SESSION['idTexte']);
+        $lib_amendement = $_POST['lib_amendement'];
+        $texte_amendement = $_POST['texte_amendement'];
 
+        $this->maGestion->ajouterAmendement($code_amendement, $lib_amendement, $texte_amendement, $_SESSION['idArticle'], $_SESSION['idTexte']);
+        //$this->vueTexte('visualiser');
       break;  //case 'enregistrerAmendement'
     }
   }

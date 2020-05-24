@@ -15,6 +15,18 @@ class ConteneurAmendement{
     $this->lesAmendements->append($unAmendement);
   }
 
+  public function returnCodeAmendementSuivant($codeArticle,$codeTexte){
+    $vretour=1;
+    foreach($this->lesAmendements as $unAmendement){
+      if($unAmendement->getCodeArticleRef() == $codeArticle && $unAmendement->getCodeTexteRef() == $codeTexte){
+        if($vretour == $unAmendement->getCodeSeqAmendement()){
+          $vretour++;
+        }
+      }
+    }
+    return $vretour;
+  }
+
   public function getInfo($codeAmendement, $codeArticle, $codeTexte, $info){
     foreach($this->lesAmendements as $unAmendement){
       if($unAmendement->getCodeSeqAmendement()==$codeAmendement && $unAmendement->getCodeArticleRef() == $codeArticle && $unAmendement->getCodeTexteRef() == $codeTexte){

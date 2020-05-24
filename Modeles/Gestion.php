@@ -54,7 +54,13 @@ class Gestion{
   public function getNomPrenom($loginUser){
     return $this->lesUtilisatateurs->getNomPrenom($loginUser);
   }
+  public function returnCodeAmendementSuivant($code_article, $code_texte){
+    return $this->lesAmendements->returnCodeAmendementSuivant($code_article,$code_texte);
+  }
 
+  public function getInfoArticle($code_article,$code_texte,$info){
+    return $this->lesArticles->getInfo($code_article,$code_texte,$info);
+  }
 
 
   //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -147,8 +153,9 @@ class Gestion{
     $this->lesArticles->ajouterArticle($code_article,$titre_article, $texte_article, $code_texte);
   }
 
-  public function ajouterAmendement(){
-
+  public function ajouterAmendement($code_amendement, $lib_amendement, $texte_amendement, $code_article_ref, $code_texte_ref){
+    $this->CasCofonieBDD->insertAmendement($code_amendement, $lib_amendement, $texte_amendement, date('Y-m-d'), $code_article_ref, $code_texte_ref);
+    $this->lesAmendements->ajouterAmendement($code_amendement, $lib_amendement, $texte_amendement, date('Y-m-d'), $code_article_ref, $code_texte_ref);
   }
 
   //---------------------------------------------------------------------------------------------------------------------------------------------

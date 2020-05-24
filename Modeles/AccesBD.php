@@ -76,6 +76,19 @@ class AccesBD{
 		}
 	}
 
+	public function insertAmendement($code_amendement, $lib_amendement, $texte_amendement, $date_amendement, $code_article_ref, $code_texte_ref){
+		$requete = $this->connexion->prepare("INSERT INTO AMENDEMENT(code_seq_amendement, lib_amendement, texte_amendement, date_amendement, code_article_ref, code_texte_ref) VALUES(?,?,?,?,?,?)");
+		$requete->bindValue(1,$code_amendement);
+		$requete->bindValue(2,$lib_amendement);
+		$requete->bindValue(3,$texte_amendement);
+		$requete->bindValue(4,$date_amendement);
+		$requete->bindValue(5,$code_article_ref);
+		$requete->bindValue(6,$code_texte_ref);
+
+		if(!$requete->execute()){
+			die("Erreur dans insertAmendement : ".$requete->errorCode());
+		}
+	}
   	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//------------------CHARGEMENT DES TABLES------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

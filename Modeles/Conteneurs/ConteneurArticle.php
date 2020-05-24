@@ -15,9 +15,9 @@ class ConteneurArticle{
     $this->lesArticles->append($unArticle);
   }
 
-  public function getInfo($codeArticle, $texte, $info){
+  public function getInfo($codeArticle, $codeTexte, $info){
     foreach($this->lesArticles as $unArticle){
-      if($unArticle->getCodeArticle() == $codeArticle && $unArticle->getCodeTexte()==$texte){
+      if($unArticle->getCodeArticle() == $codeArticle && $unArticle->getCodeTexte()==$codeTexte){
         switch($info){
           case 'code_article':
             return $unArticle->getCodeArticle();
@@ -53,7 +53,11 @@ class ConteneurArticle{
     $vretour = "<SELECT name = 'idArticleAmendement'>";
     foreach($this->lesArticles as $unArticle){
       if($unArticle->getCodeTexte() == $idTexte){
-        $vretour = $vretour."<OPTION value='".$unArticle->getCodeArticle()."'>".$unArticle->getTitreArticle()."</OPTION>";
+        if($_SESSION['idArticle'] !== $unArticle->getCodeArticle()){
+          $vretour = $vretour."<OPTION value='".$unArticle->getCodeArticle()."'>".$unArticle->getTitreArticle()."</OPTION>";
+        }else{
+          $vretour = $vretour."<OPTION selected value='".$unArticle->getCodeArticle()."'>".$unArticle->getTitreArticle()."</OPTION>";
+        }
       }
     }
     return $vretour."</SELECT>";
