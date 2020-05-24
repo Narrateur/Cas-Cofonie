@@ -10,18 +10,27 @@ class ConteneurUtilisateur{
     	$this->lesUtilisateurs = new ArrayObject();
   	}
 
-  	public function ajouterUtilisateur($unCodeUser, $unNomUser, $unPrenomUser, $unLoginUser, $unPasswordUser, $unCodeOrgane){
-    	$unUtilisateur = new Utilisateur($unCodeUser, $unNomUser, $unPrenomUser, $unLoginUser, $unPasswordUser, $unCodeOrgane);
+  	public function ajouterUtilisateur($unCodeUser, $unNomUser, $unPrenomUser, $unLoginUser, $unPasswordUser, $unCodeOrgane, $unrole){
+    	$unUtilisateur = new Utilisateur($unCodeUser, $unNomUser, $unPrenomUser, $unLoginUser, $unPasswordUser, $unCodeOrgane, $unrole);
     	$this->lesUtilisateurs->append($unUtilisateur);
   	}
 
 	public function getNomPrenom($loginUser){
-	  	foreach($this->lesUtilisateurs as $unUtilisateur){
+		foreach($this->lesUtilisateurs as $unUtilisateur){
 		  	if(str_replace(' ','',$unUtilisateur->getLoginUser())==str_replace(' ','',$loginUser)){
 				return $unUtilisateur->getNomUser().' '.$unUtilisateur->getPrenomUser();
 			}
 	  	}
-  	}
+	}
+	
+	public function getRoleUser($loginUser){
+		foreach($this->lesUtilisateurs as $unUtilisateur){
+			if(str_replace(' ','',$unUtilisateur->getLoginUser())==str_replace(' ','',$loginUser)){
+				return str_replace(' ','',$unUtilisateur->getRoleUser());
+			}
+		}
+	}
+
 
 
 

@@ -7,15 +7,17 @@ class Utilisateur{
   private $login_user;
   private $password_user;
   private $code_organe;
+  private $role_user;
 
   //CONSTUCTEUR
-  public function __construct($unCodeUser, $unNomUser, $unPrenomUser, $unLoginUser, $unPasswordUser, $unCodeOrgane){
+  public function __construct($unCodeUser, $unNomUser, $unPrenomUser, $unLoginUser, $unPasswordUser, $unCodeOrgane, $unrole){
     $this->code_user = str_replace(' ','',$unCodeUser) ;
     $this->nom_user = str_replace(' ','',$unNomUser);
     $this->prenom_user = str_replace(' ','',$unPrenomUser);
     $this->login_user = str_replace(' ','',$unLoginUser);
     $this->password_user = str_replace(' ','',$unPasswordUser);
     $this->code_organe = str_replace(' ','',$unCodeOrgane);
+    $this->role_user = $unrole;
   }
 
   //GETTER
@@ -36,6 +38,9 @@ class Utilisateur{
   }
   public function getCodeOrgane(){
     return $this->code_organe;
+  }
+  public function getRoleUser(){
+    return $this->role_user;
   }
 }
 

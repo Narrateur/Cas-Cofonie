@@ -19,9 +19,10 @@
 
         ?>
         <li><a href='index.php?vue=vueTexte&action=visualiser'>Consulter les Textes de Loi</a></li>
-        <li><a href="index.php?vue=vueTexte&action=vueVoter">Voter un Article</a></li>
+        <li><a href="index.php?vue=vueTexte&action=voter">Voter un Article</a></li>
         <li><a href="index.php?vue=vueTexte&action=proposerLoi">Proposer une Loi</a></li>
         <li><a href="index.php?vue=vueTexte&action=choisirArticle">Proposer un Amendement</a></li>
+        <li><a href="index.php?vue=vueTexte&action=ajouterArticleTexte">Ajouter un Article</a></li>
         <?php
           if (!empty($_SESSION['IdentifiantUtilisateur'])){
             echo "<li><a href='index.php?vue=vueConnexion&action=deconnecter'>Déconnexion</a></li>";

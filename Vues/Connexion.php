@@ -27,7 +27,12 @@
                     Organe : <?php echo $_SESSION['listeOrgane']; ?>
                     Identifiant : <input type='text' name='login' required><br>
                     Mot de passe : <input type='password' name='mdp' required><br>
-                    Confirmer le mot de passe : <input type='password' name='mdp2' required><br><br>
+                    Confirmer le mot de passe : <input type='password' name='mdp2' required><br>
+                    Role : <SELECT name='libRole'><option value='secretaire'>secretaire</option>
+                                                    <option value='greffier'>greffier</option>
+                                                    <option value='citoyen'>citoyen</option>
+                                                    <option value='monarque'>monarque</option>
+                                                </SELECT><br><br>
                     
                     <input type = 'reset' value = 'Vider'> <input type = 'submit' value = 'Valider'>
                 </FORM>

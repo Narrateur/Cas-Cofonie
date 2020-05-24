@@ -54,6 +54,9 @@ class Gestion{
   public function getNomPrenom($loginUser){
     return $this->lesUtilisatateurs->getNomPrenom($loginUser);
   }
+  public function getRoleUser($loginUser){
+    return $this->lesUtilisatateurs->getRoleUser($loginUser);
+  }
   public function returnCodeAmendementSuivant($code_article, $code_texte){
     return $this->lesAmendements->returnCodeAmendementSuivant($code_article,$code_texte);
   }
@@ -110,7 +113,7 @@ class Gestion{
     $resultat = $this->CasCofonieBDD->loadTable('Utilisateur');
     $nb=0;
     while($nb<sizeof($resultat)){
-      $this->lesUtilisatateurs->ajouterUtilisateur($resultat[$nb] [0], $resultat[$nb] [1], $resultat[$nb] [2], $resultat[$nb] [3], $resultat[$nb] [4], $resultat[$nb] [5]);
+      $this->lesUtilisatateurs->ajouterUtilisateur($resultat[$nb] [0], $resultat[$nb] [1], $resultat[$nb] [2], $resultat[$nb] [3], $resultat[$nb] [4], $resultat[$nb] [5], $resultat[$nb] [6]);
       $nb++;
     }
   }
@@ -120,15 +123,15 @@ class Gestion{
   //-----------METHODES D'AJOUT DANS LA BASE DE DONNEES------------------------------------------------------------------------------------------
   //---------------------------------------------------------------------------------------------------------------------------------------------
 
-  public function ajouterUtilisateur($nomUser, $prenomUser, $loginUser, $passwordUser, $codeInstitution){
-    $this->CasCofonieBDD->insertUtilisateur($nomUser, $prenomUser, $loginUser, $passwordUser, $codeInstitution);
+  public function ajouterUtilisateur($nomUser, $prenomUser, $loginUser, $passwordUser, $codeInstitution, $role){
+    $this->CasCofonieBDD->insertUtilisateur($nomUser, $prenomUser, $loginUser, $passwordUser, $codeInstitution, $role);
     //echo 'son id '.$sonID;
     //$this->lesUtilisatateurs->ajouterUtilisateur($sonID, $nomUser, $prenomUser, $loginUser, $passwordUser, $codeInstitution);
 
     $resultat = $this->CasCofonieBDD->loadTable('Utilisateur');
     $nb=0;
     while($nb<sizeof($resultat)){
-      $this->lesUtilisatateurs->ajouterUtilisateur($resultat[$nb] [0], $resultat[$nb] [1], $resultat[$nb] [2], $resultat[$nb] [3], $resultat[$nb] [4], $resultat[$nb] [5]);
+      $this->lesUtilisatateurs->ajouterUtilisateur($resultat[$nb] [0], $resultat[$nb] [1], $resultat[$nb] [2], $resultat[$nb] [3], $resultat[$nb] [4], $resultat[$nb] [5], $resultat[$nb] [6]);
       $nb++;
     }
   }

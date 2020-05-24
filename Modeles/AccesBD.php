@@ -27,28 +27,17 @@ class AccesBD{
   	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//--------------------------INSERT------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	public function insertUtilisateur($nomUser, $prenomUser, $loginUser, $passwordUser, $codeOrgane){
-		$requete = $this->connexion->prepare("INSERT INTO UTILISATEUR (nom_user,prenom_user,login_user,password_user,code_organe) VALUES(?,?,?,?,?)");
+	public function insertUtilisateur($nomUser, $prenomUser, $loginUser, $passwordUser, $codeOrgane,$role){
+		$requete = $this->connexion->prepare("INSERT INTO UTILISATEUR (nom_user,prenom_user,login_user,password_user,code_organe,role_user) VALUES(?,?,?,?,?,?)");
 		$requete->bindValue(1,$nomUser);
 		$requete->bindValue(2,$prenomUser);
 		$requete->bindValue(3,$loginUser);
 		$requete->bindValue(4,$passwordUser);
 		$requete->bindValue(5,$codeOrgane);
+		$requete->bindValue(6,$role);
 
 		if(!$requete->execute()){
 			die("Erreur dans insertUtilisateur : ".$requete->errorCode());
-		}else{
-			$sonId = $this->connexion->prepare("SELECT code_user FROM UTILISATEUR where nom_user=".$nomUser." AND prenom_user=".$prenomUser." AND login_user=".$loginUser." AND password_user=".$passwordUser);
-			//if(!$sonId->execute())
-			//{
-				//die("Erreur dans returnUserId : ".$requete->errorCode());
-			//}else{
-				$data = $sonId->fetch(PDO::FETCH_ASSOC);
-				//strcmp($data['code_user'], [string]);
-				echo 'data '.$data;
-				return $data;
-				//return $sonId;
-			//}
 		}
 	}
 
