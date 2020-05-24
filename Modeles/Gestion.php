@@ -60,9 +60,15 @@ class Gestion{
   public function returnCodeAmendementSuivant($code_article, $code_texte){
     return $this->lesAmendements->returnCodeAmendementSuivant($code_article,$code_texte);
   }
+  public function returnCodeArticleSuivant($codeTexte){
+    return $this->lesArticles->returnCodeArticleSuivant($codeTexte);
+  }
 
   public function getInfoArticle($code_article,$code_texte,$info){
     return $this->lesArticles->getInfo($code_article,$code_texte,$info);
+  }
+  public function getInfoTexte($code_texte,$info){
+    return $this->lesTextes->getInfo($code_texte,$info);
   }
 
 
@@ -184,6 +190,36 @@ class Gestion{
     $vretour='';
     for($texte=1; $texte<=$this->lesTextes->returnPlusGrandID(); $texte++){
       if(!empty($this->lesTextes->getInfo($texte, 'titre_texte'))){
+        $vretour = $vretour."<table border=2 margin-left:auto;margin-right:auto;>
+                              <tr>
+                                <td style='text-align:center'>
+                                  <h3>".$this->lesTextes->getInfo($texte, 'titre_texte')."</h3>
+                                </td>
+                              </tr>";
+
+        for($article=1; $article<=$this->lesArticles->returnPlusGrandIDArticleTexte($texte); $article++){
+          if(!empty($this->lesArticles->getInfo($article, $texte, 'titre_article'))){
+            $vretour = $vretour."<tr><td>".$this->lesArticles->getInfo($article, $texte, 'titre_article')."<br>".$this->lesArticles->getInfo($article, $texte, 'texte_article')."</td>";
+
+            for($amendement=1; $amendement<=$this->lesAmendements->returnPlusGrandIDAmendementArticle($article,$texte);$amendement++){
+              if(!empty($this->lesAmendements->getInfo($amendement,$article,$texte,'lib_amendement'))){
+                $vretour = $vretour."<td>".$this->lesAmendements->getInfo($amendement,$article,$texte,'lib_amendement')." <br>du ".$this->lesAmendements->getInfo($amendement,$article,$texte,'date_amendement')."<br><br>".$this->lesAmendements->getInfo($amendement,$article,$texte,'texte_amendement')."</td>";
+              }
+            }
+            $vretour = $vretour."</tr>";
+          }
+          
+        }
+        $vretour = $vretour.'</table>';             
+      }
+    }
+    return $vretour;
+  }
+
+  public function listeLesTextesAvecID($idTexte){
+    $vretour='';
+    for($texte=1; $texte<=$this->lesTextes->returnPlusGrandID(); $texte++){
+      if(!empty($this->lesTextes->getInfo($texte, 'titre_texte')) && $texte == $idTexte){
         $vretour = $vretour."<table border=2 margin-left:auto;margin-right:auto;>
                               <tr>
                                 <td style='text-align:center'>

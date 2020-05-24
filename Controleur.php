@@ -233,7 +233,7 @@ class Controleur{
           $_SESSION['texteArticleAmendement'] = "<textarea id='texte_article' name='texte_article' rows='5' cols='33' readonly>".$this->maGestion->getInfoArticle($_SESSION['idArticle'], $_SESSION['idTexte'], 'texte_article')."</textarea>";
 
           $code_amendement = $this->maGestion->returnCodeAmendementSuivant($_SESSION['idArticle'],$_SESSION['idTexte']);
-          $_SESSION['lib_amendement'] = 'Amendement '.$code_amendement.' - Article '.$_SESSION['idArticle'].' - Texte '.$_SESSION['idTexte'];
+          $_SESSION['lib_amendement'] = 'Amendement '.$code_amendement.' - Article '.$_SESSION['idArticle'].' - '.$this->maGestion->getInfoTexte($_SESSION['idTexte'],'titre_texte');
           $_SESSION['choixTexteArticle']=1;
           require 'Vues/ProposerAmendement.php';
         }
@@ -255,6 +255,11 @@ class Controleur{
           $this->maGestion->ajouterAmendement($code_amendement, $lib_amendement, $texte_amendement, $_SESSION['idArticle'], $_SESSION['idTexte']);
           $_SESSION['idArticle']=null;
           $_SESSION['idTexte']=null;
+          $_SESSION['choixTexteArticle']=null;
+          $_SESSION['lib_amendement']=null;
+          $_SESSION['listeDeroulanteArticle']=null;
+          $_SESSION['listeDeroulanteTexte']=null;
+          $_SESSION['texteArticleAmendement']=null;
           $this->vueTexte('visualiser');
         }
         
@@ -262,6 +267,43 @@ class Controleur{
 
       case 'ajouterArticleTexte':
         //$ $this->maGestion->listeDeroulanteTexte();
+        if($this->maGestion->getRoleUser($_SESSION['IdentifiantUtilisateur']) !== 'secretaire'){
+          $message = "Erreur : Vous ne pouvez pas être ici";
+					$lien = 'index.php?vue=vueTexte&action=visualiser';
+					$_SESSION['message'] = $message;
+					$_SESSION['lien'] = $lien;
+					require 'Vues/PageErreur.php';
+        }else{
+          $_SESSION['listeTexteAjoutArticle'] = $this->maGestion->listeDeroulanteTexte();
+          
+          if(isset($_POST['idTexteAmendement'])){
+            $_SESSION['idTexte'] = $_POST['idTexteAmendement'];
+            $_SESSION['libArticle'] = 'Article '.$this->maGestion->returnCodeArticleSuivant($_SESSION['idTexte'])." - ".$this->maGestion->getInfoTexte($_SESSION['idTexte'],'titre_texte');
+          }
+          $_SESSION['ArticlesDuTexte'] = $this->maGestion->listeLesTextesAvecID($_SESSION['idTexte']);
+          require 'Vues/AjouterArticle.php';
+        }
+      break;
+
+      case 'enregistrerArticleAjout':
+        if($this->maGestion->getRoleUser($_SESSION['IdentifiantUtilisateur']) !== 'secretaire'){
+          $message = "Erreur : Vous ne pouvez pas être ici";
+					$lien = 'index.php?vue=vueTexte&action=visualiser';
+					$_SESSION['message'] = $message;
+					$_SESSION['lien'] = $lien;
+					require 'Vues/PageErreur.php';
+        }else{
+          $code_article = $this->maGestion->returnCodeArticleSuivant($_SESSION['idTexte']);
+          $titre_article = $_POST['titre_article'];
+          $texte_article = $_POST['texte_article'];
+          $this->maGestion->ajouterArticle($code_article,$titre_article,$texte_article,$_SESSION['idTexte']);
+
+          $_SESSION['listeTexteAjoutArticle'] = null;
+          $_SESSION['ArticlesDuTexte'] = null;
+          $_SESSION['idTexte'] = null;
+          $_SESSION['libArticle'] = null;
+          $this->vueTexte('visualiser');
+        }
       break;
     }
   }

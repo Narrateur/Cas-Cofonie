@@ -36,6 +36,17 @@ class ConteneurArticle{
     }
   }
 
+  public function returnCodeArticleSuivant($codeTexte){
+    $vretour = 1;
+    foreach($this->lesArticles as $unArticle){
+      if($unArticle->getCodeTexte() == $codeTexte){
+        if($unArticle->getCodeArticle() == $vretour){
+          $vretour++;
+        }
+      }
+    }
+    return $vretour;
+  }
 
   public function returnPlusGrandIDArticleTexte($codeTexte){
     $vretour = 0;
